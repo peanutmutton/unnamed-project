@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     "wiki.apps.WikiConfig",
     #installed apps
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
