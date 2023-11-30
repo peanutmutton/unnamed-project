@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "_base.html" %}
+
+{% block content %}
+
     {% for article in article_list %}
-        <a href="{% url 'article_detail' %}">{{ article.title }}</a>
+        <a href="{% url 'article_detail' slug=article.slug %}">{{ article.title }}</a>
     {% endfor %}
-</body>
-</html>
+
+
+
+{% endblock %}

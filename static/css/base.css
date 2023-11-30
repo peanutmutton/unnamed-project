@@ -1,0 +1,6 @@
+
+
+/*_base.html classes first. to be inherited by all templates */
+.nav-head {
+    border-bottom: dashed;
+}

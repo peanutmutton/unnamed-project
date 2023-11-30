@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+</head>
+<body>
+<nav class="nav-head">
+    <img src="{% static 'almaty_logo.png' %}" alt="Almaty Logo" width="40" height="40">
+    <a href="{% url 'article_list' %}" class="nav-link">Home</a>
+    <a href="about/" class="nav-link">About</a>
+</nav>
+
+    {% block content %}
+    	
+    {% endblock %}
+
+</body>
+</html>

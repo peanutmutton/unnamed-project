@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #local apps
     'accounts.apps.AccountsConfig',
     "wiki.apps.WikiConfig",
+    #installed apps
 ]
 
 MIDDLEWARE = [
@@ -121,6 +122,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+#Add static root, conflicts with staticfiles_dirs
+STATIC_ROOT = 'static/'
+
+#Adding static
+# STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
