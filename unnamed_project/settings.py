@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #installed apps
+    "ckeditor",
+    "allauth",
+    "allauth.account",
     #local apps
     'accounts.apps.AccountsConfig',
     "wiki.apps.WikiConfig",
-    #installed apps
-    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'unnamed_project.urls'
@@ -125,10 +128,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 #Add static root, conflicts with staticfiles_dirs
-STATIC_ROOT = 'static/'
+# STATIC_ROOT = 'static/'
 
 #Adding static
-# STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -140,3 +143,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
+#Allauth
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
+
+#redirects logged in users away from the login page
+LOGIN_REDIRECT_URL = "article_list"

@@ -1,6 +1,24 @@
 
 
 /*_base.html classes first. to be inherited by all templates */
+.top-container {
+
+}
+
 .nav-head {
     border-bottom: dashed;
+    display: flex;
+    background-color: lime;
+    opacity: 30%;
+    max-height: 50px;
+
+}
+
+.nav-link {
+    display: inline;
+
+}
+
+.nav-right {
+    float: right;
 }

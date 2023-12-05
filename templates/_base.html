@@ -3,20 +3,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}Base Page{% endblock %}</title>
 
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
 </head>
 <body>
-<nav class="nav-head">
-    <img src="{% static 'almaty_logo.png' %}" alt="Almaty Logo" width="40" height="40">
-    <a href="{% url 'article_list' %}" class="nav-link">Home</a>
-    <a href="about/" class="nav-link">About</a>
-</nav>
+    <div class="top-container">
+        <nav class="nav-head">
+            <ul>
+                <li class="nav-link"><img src="{% static 'almaty_logo.png' %}" alt="Almaty Logo" width="40" height="40"></li>
 
-    {% block content %}
-    	
-    {% endblock %}
+                <li class="nav-link"><a href="{% url 'article_list' %}" >Home</a></li>
+                <li class="nav-link"><a href="about/" >About</a></li>
+                <li class="nav-link"><a href="{% url 'article_start' %}" >Start article</a></li>
+                {% if user.is_authenticated %}
+                    <li class="nav-link nav-right"><a  href="{% url 'account_logout' %}">Log Out</a></li>
+                {% else %}
+                    <li class="nav-link nav-right"><a class="nav-link nav-right" href="{% url 'account_login' %}">Log In</a></li>
+                    <li class="nav-link nav-right"><a class="nav-link nav-right" href="{% url 'account_signup' %}">Sign Up</a></li>
 
+                {% endif %}
+            </ul>
+        </nav>
+
+            {% block content %}{% endblock %}
+    </div>
 </body>
 </html>

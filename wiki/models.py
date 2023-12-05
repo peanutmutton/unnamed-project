@@ -9,10 +9,15 @@ class Article(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.RESTRICT)
 
+    def __str__(self):
+        return self.title
+
 class ArticleContent(models.Model):
-    date_modified = models.DateTimeField(auto_now=True)
-    html_content = RichTextField(blank=True, null=True)
+    date_edited = models.DateTimeField(auto_now=True)
+    content = RichTextField(blank=True, null=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     editor = models.ForeignKey(User, on_delete=models.RESTRICT)
 
+    def __str__(self):
+        return self.article.title + str(self.id)
 
