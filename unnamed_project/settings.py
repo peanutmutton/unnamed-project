@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #installed apps
     "ckeditor",
+    "ckeditor_uploader",
     "allauth",
     "allauth.account",
     #local apps
@@ -133,6 +134,10 @@ STATIC_URL = 'static/'
 #Adding static
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
+
+#media
+MEDIA_ROOT = "media/"
+MEDIA_URL = "media/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -157,3 +162,6 @@ AUTHENTICATION_BACKENDS = [
 #redirects logged in users away from the login page
 LOGIN_REDIRECT_URL = "article_list"
 LOGOUT_REDIRECT_URL = "article_list"
+
+#ckeditor
+CKEDITOR_UPLOAD_PATH = "uploads/"

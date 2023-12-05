@@ -27,7 +27,7 @@ class ArticleCreateView(LoginRequiredMixin,
     model = Article
     template_name = "article_create.html"
     form_class = ArticleForm
-    success_url = reverse_lazy("article_edit:slug")
+    success_url = reverse_lazy("article_edit")
     login_url = "account_login"
     permission_required = "wiki.special_status"
 
