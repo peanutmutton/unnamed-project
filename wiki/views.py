@@ -5,7 +5,7 @@ from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.utils.text import slugify
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 from .forms import ArticleForm, ArticleContentForm
@@ -21,12 +21,15 @@ class ArticleListView(ListView):
     template_name = "article_list.html"
 
 
-class ArticleCreateView(LoginRequiredMixin ,CreateView):
+class ArticleCreateView(LoginRequiredMixin,
+                        PermissionRequiredMixin,
+                        CreateView):
     model = Article
     template_name = "article_create.html"
     form_class = ArticleForm
     success_url = reverse_lazy("article_edit:slug")
     login_url = "account_login"
+    permission_required = "wiki.special_status"
 
     def form_valid(self, form):
         self.object = form.save(commit=False)

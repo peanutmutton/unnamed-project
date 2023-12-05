@@ -156,3 +156,4 @@ AUTHENTICATION_BACKENDS = [
 
 #redirects logged in users away from the login page
 LOGIN_REDIRECT_URL = "article_list"
+LOGOUT_REDIRECT_URL = "article_list"

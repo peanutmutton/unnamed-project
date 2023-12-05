@@ -12,6 +12,12 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        permissions = [
+            ("special_status", "Can create articles"),
+        ]
+
+
 class ArticleContent(models.Model):
     date_edited = models.DateTimeField(auto_now=True)
     content = RichTextField(blank=True, null=True)
@@ -19,5 +25,5 @@ class ArticleContent(models.Model):
     editor = models.ForeignKey(User, on_delete=models.RESTRICT)
 
     def __str__(self):
-        return self.article.title + str(self.id)
+        return self.article.title + str(self.date_edited)
 
