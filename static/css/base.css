@@ -8,9 +8,9 @@
 .nav-head {
     border-bottom: dashed;
     display: flex;
-    background-color: lime;
-    opacity: 30%;
-    max-height: 50px;
+    background-color: #79aec8;
+    /*opacity: 30%;*/
+    /*max-height: 50px;*/
 
 }
 

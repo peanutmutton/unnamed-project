@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "ckeditor_uploader",
     "allauth",
     "allauth.account",
+    "simple_history",
     #local apps
     'accounts.apps.AccountsConfig',
     "wiki.apps.WikiConfig",
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 ROOT_URLCONF = 'unnamed_project.urls'
@@ -116,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Almaty'
 
 USE_I18N = True
 

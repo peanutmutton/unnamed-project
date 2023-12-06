@@ -1,6 +1,12 @@
 {% extends '_base.html' %}
 
 {% block content %}
-    {{ article.articlecontent_set.last.content | safe }}
+    <a href="{% url 'article_edit' article.slug %}">Edit Article</a>
+    <h1>{{ article.title }}</h1>
+    {% for item in article.history.all %}
+        <p>{{ item }}</p>
+    {% endfor %}
+{#    <p>{{ article.history.all }}</p>#}
+    {{ article.content | safe }}
 {% endblock %}
 

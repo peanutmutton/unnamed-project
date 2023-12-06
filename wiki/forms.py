@@ -1,14 +1,14 @@
 from django import forms
 from django.utils.text import slugify
 
-from .models import Article, ArticleContent
+from .models import Article
 from ckeditor.fields import RichTextFormField
 
 
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ("title",)
+        fields = ("title", "content")
     # def clean(self):
     #     super().clean()
     #     self.cleaned_data['slug'] = slugify(self.cleaned_data['title'])
@@ -16,8 +16,8 @@ class ArticleForm(forms.ModelForm):
 
 
 
-class ArticleContentForm(forms.ModelForm):
-
-    class Meta:
-        model=ArticleContent
-        fields=("content", "article")
+# class ArticleContentForm(forms.ModelForm):
+#
+#     class Meta:
+#         model=ArticleContent
+#         fields=("content", "article")
