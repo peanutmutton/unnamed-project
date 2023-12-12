@@ -14,11 +14,9 @@
 
 }
 
-.nav-link {
-    display: inline;
 
-}
 
-.nav-right {
-    float: right;
+.block-content {
+    margin-left: 35px;
+    margin-right: 35px;
 }

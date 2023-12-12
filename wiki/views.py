@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-
+from django.http import HttpResponseRedirect
 
 from .forms import ArticleForm
 from .models import Article
@@ -16,6 +16,25 @@ class ArticleDetailView(DetailView):
     model = Article
     template_name = "article_detail.html"
 
+class ArticleVersionView(LoginRequiredMixin,
+                          PermissionRequiredMixin,
+                          UpdateView):
+    model = Article
+    template_name = "article_versions.html"
+    login_url = "account_login"
+    permission_required = "wiki.special_status"
+    fields = ("title",)
+    def form_valid(self, form):
+        version = self.request.POST.get("v")
+        print(version)
+        version_set = self.object.history.filter(pk=version)
+        print(version_set[0])
+        version_set[0].instance.save()
+
+        return HttpResponseRedirect(self.get_success_url())
+        # return super().form_valid(form)
+    def get_success_url(self):
+        return self.object.get_absolute_url()
 
 class ArticleListView(ListView):
     model = Article
@@ -28,7 +47,7 @@ class ArticleCreateView(LoginRequiredMixin,
     model = Article
     template_name = "article_create.html"
     form_class = ArticleForm
-    success_url = reverse_lazy("article_edit")
+    # success_url = reverse_lazy("article_detail", )
     login_url = "account_login"
     permission_required = "wiki.special_status"
 
@@ -36,9 +55,12 @@ class ArticleCreateView(LoginRequiredMixin,
         self.object = form.save(commit=False)
         self.object.author = self.request.user
         self.object.slug = slugify(self.object.title)
-        self.object.save()
+        # self.object.save()
+
 
         return super().form_valid(form)
+    def get_success_url(self):
+        return self.object.get_absolute_url()
 
 #Remake into a form view, as updateview doesn't create simplehistory records
 class ArticleUpdateView(LoginRequiredMixin,

@@ -11,6 +11,7 @@ django-js-asset==2.1.0
 django-simple-history==3.4.0
 idna==3.6
 oauthlib==3.2.2
+Pillow==10.1.0
 psycopg2-binary==2.9.9
 pycparser==2.21
 PyJWT==2.8.0

@@ -2,10 +2,12 @@
 
 {% block content %}
     <a href="{% url 'article_edit' article.slug %}">Edit Article</a>
+    <a href="{% url 'article_versions' article.slug %}">Article Versions</a>
+
     <h1>{{ article.title }}</h1>
-    {% for item in article.history.all %}
-        <p>{{ item }}</p>
-    {% endfor %}
+{#    {% for item in article.history.all %}#}
+{#        <p>{{ item }}</p>#}
+{#    {% endfor %}#}
 {#    <p>{{ article.history.all }}</p>#}
     {{ article.content | safe }}
 {% endblock %}

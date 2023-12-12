@@ -5,29 +5,39 @@
     <meta charset="UTF-8">
     <title>{% block title %}Base Page{% endblock %}</title>
 
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
+
 </head>
 <body>
-    <div class="top-container">
-        <nav class="nav-head">
-            <ul>
-                <li class="nav-link"><img src="{% static 'almaty_logo.png' %}" alt="Almaty Logo" width="40" height="40"></li>
+    <div class="top-container ">
 
-                <li class="nav-link"><a href="{% url 'article_list' %}" >Home</a></li>
-                <li class="nav-link"><a href="about/" >About</a></li>
-                <li class="nav-link"><a href="{% url 'article_start' %}" >Start article</a></li>
-                {% if user.is_authenticated %}
-                    <li class="nav-link nav-right"><h5>{{ user.username }}</h5></li>
-                    <li class="nav-link nav-right"><a  href="{% url 'account_logout' %}">Log Out</a></li>
-                {% else %}
-                    <li class="nav-link nav-right"><a class="nav-link nav-right" href="{% url 'account_login' %}">Log In</a></li>
-                    <li class="nav-link nav-right"><a class="nav-link nav-right" href="{% url 'account_signup' %}">Sign Up</a></li>
+        <nav class="navbar navbar-expand-lg bg-body-secondary">
+            <div class="container-fluid">
+                <img class="navbar-brand" src="{% static 'almaty_logo.png' %}" alt="Almaty Logo" width="40" height="40">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
 
-                {% endif %}
-            </ul>
+
+                        <li class="nav-item"><a class="nav-link {% block nav_home_class %}{% endblock %}" href="{% url 'article_list' %}"  >Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="about/" >About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'article_start' %}" >Start article</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item "><h5>{{ user.username }}</h5></li>
+                            <li class="nav-item "><a class="nav-link" href="{% url 'account_logout' %}">Log Out</a></li>
+                        {% else %}
+                            <li class="nav-item "><a class="nav-link" href="{% url 'account_login' %}">Log In</a></li>
+                            <li class="nav-item "><a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a></li>
+
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
         </nav>
-
+        <div class="block-content">
             {% block content %}{% endblock %}
+        </div>
     </div>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 </html>
