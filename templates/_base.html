@@ -20,7 +20,7 @@
 
 
                         <li class="nav-item"><a class="nav-link {% block nav_home_class %}{% endblock %}" href="{% url 'article_list' %}"  >Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about/" >About</a></li>
+{#                        <li class="nav-item"><a class="nav-link" href="about/" >About</a></li>#}
                         <li class="nav-item"><a class="nav-link" href="{% url 'article_start' %}" >Start article</a></li>
                         {% if user.is_authenticated %}
                             <li class="nav-item "><h5>{{ user.username }}</h5></li>

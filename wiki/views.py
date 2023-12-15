@@ -50,6 +50,7 @@ class ArticleCreateView(LoginRequiredMixin,
     # success_url = reverse_lazy("article_detail", )
     login_url = "account_login"
     permission_required = "wiki.special_status"
+    permission_denied_message = "Moderator status required"
 
     def form_valid(self, form):
         self.object = form.save(commit=False)

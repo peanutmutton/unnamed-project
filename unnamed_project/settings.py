@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from environs import Env
 
+env = Env()
+env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-g-#0@pe+*4*m5%+06)@9iuwjm%lctd45-oidr#dn+5b)8k+@r%'
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,18 +41,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     #installed apps
     "ckeditor",
     "ckeditor_uploader",
     "allauth",
     "allauth.account",
     "simple_history",
+    'debug_toolbar',
+    "whitenoise.runserver_nostatic",
     #local apps
     'accounts.apps.AccountsConfig',
     "wiki.apps.WikiConfig",
+
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +67,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "allauth.account.middleware.AccountMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
+    'django.middleware.cache.FetchFromCacheMiddleware',
+    #has to be last
 ]
 
 ROOT_URLCONF = 'unnamed_project.urls'
@@ -131,7 +144,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 #Add static root, conflicts with staticfiles_dirs
-# STATIC_ROOT = 'static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 #Adding static
 STATICFILES_DIRS = [BASE_DIR / "static"]
@@ -151,6 +164,8 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 #Allauth
+SITE_ID=1
+
 AUTHENTICATION_BACKENDS = [
 
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -160,6 +175,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 
 ]
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 #redirects logged in users away from the login page
 LOGIN_REDIRECT_URL = "article_list"
@@ -169,3 +185,35 @@ LOGOUT_REDIRECT_URL = "article_list"
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_STORAGE_BACKEND = 'django.core.files.storage.FileSystemStorage'
+
+#email
+DEFAULT_FROM_EMAIL = "admin@example.com"
+
+#django-debug-toolbar
+import socket
+
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
+
+#cache
+CACHE_MIDDLEWARE_ALIAS = "default"
+CACHE_MIDDLEWARE_SECONDS = 604800
+CACHE_MIDDLEWARE_KEY_PREFIX = ""
+
+#Secure ssl red
+
+SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
+
+
+#
+SECURE_HSTS_SECONDS = env.int("DJANGO_SECURE_HSTS_SECONDS", default=2592000)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool("DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS",
+default=True)
+SECURE_HSTS_PRELOAD = env.bool("DJANGO_SECURE_HSTS_PRELOAD", default=True)
+
+#
+SESSION_COOKIE_SECURE = env.bool("DJANGO_SESSION_COOKIE_SECURE", default=True)
+CSRF_COOKIE_SECURE = env.bool("DJANGO_CSRF_COOKIE_SECURE", default=True)
+
+#
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

@@ -1,0 +1,22 @@
+
+
+/*_base.html classes first. to be inherited by all templates */
+.top-container {
+
+}
+
+.nav-head {
+    border-bottom: dashed;
+    display: flex;
+    background-color: #79aec8;
+    /*opacity: 30%;*/
+    /*max-height: 50px;*/
+
+}
+
+
+
+.block-content {
+    margin-left: 35px;
+    margin-right: 35px;
+}
